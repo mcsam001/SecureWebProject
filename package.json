@@ -1,0 +1,19 @@
+{
+  "name": "crud-operation",
+  "version": "1.0.0",
+  "description": "The project is a CRUD operation web page for products list which consist of a homepage, signup, login and the landing page that contains the CRUD functionalities",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "body-parser": "^1.20.3",
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "express-validator": "^7.2.0",
+    "sqlite3": "^5.1.7"
+  }
+}
