@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crud Operation</title>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="login.html">Login</a>
+    </nav>
+
+    <div class="auth-container">
+      <h1>SignUp</h1>
+      <form id="signupForm" class="auth-form">
+        <div class="form-group">
+          <label for="fullname">Full Name</label>
+          <input type="text" id="fullname" name="fullname" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm-password"
+            required
+          />
+        </div>
+        <div class="input-field">
+          <label>Role</label>
+          <select class="role" id="role" required>
+            <option value="">Select Role</option>
+            <option value="Admin">Admin</option>
+            <option value="Regular">Regular User</option>
+          </select>
+        </div>
+        <button type="submit" id="submitSignUp">Sign Up</button>
+      </form>
+      <p class="auth-link">
+        Already have an account? <a href="login.html">Login</a>
+      </p>
+    </div>
+    <script>
+      document
+        .getElementById("signupForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const fullname = document.getElementById("fullname").value;
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+          const confirmPassword =
+            document.getElementById("confirm-password").value;
+          const role = document.getElementById("role").value;
+
+          if (password !== confirmPassword) {
+            alert("Passwords do not match!");
+            return;
+          }
+
+          try {
+            const response = await fetch(
+              "http://localhost:5000/api/auth/signup",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ fullname, email, password, role }),
+              }
+            );
+
+            const data = await response.json();
+
+            if (response.ok) {
+              alert("Signup successful! Redirecting to login...");
+              window.location.href = "login.html";
+            } else {
+              alert(data.message || "Signup failed");
+            }
+          } catch (error) {
+            console.error("Error during signup:", error);
+            alert("An error occurred during signup. Please try again.");
+          }
+        });
+    </script>
+  </body>
+</html>
