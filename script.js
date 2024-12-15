@@ -95,7 +95,7 @@ function updateRecord(formData) {
   selectedRow.cells[3].innerHTML = formData.perPrice;
 }
 
-//Delete the data
+
 function onDelete(td) {
   if (confirm("Do you want to delete this record?")) {
     row = td.parentElement.parentElement;
@@ -104,7 +104,7 @@ function onDelete(td) {
   }
 }
 
-//Reset the data
+
 function resetForm() {
   document.getElementById("productCode").value = "";
   document.getElementById("product").value = "";
