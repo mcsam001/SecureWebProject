@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Crud Operation</title>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <nav>
+      <a href="signup.html">Sign Up</a>
+    </nav>
+    <div class="auth-container">
+      <h1>Login</h1>
+      <form id="loginForm" class="auth-form">
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit" id="submitLogin">Login</button>
+      </form>
+      <p class="auth-link">
+        Don't have an account? <a href="signup.html">Sign Up Here</a>
+      </p>
+    </div>
+    <script>
+      document
+        .getElementById("loginForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const email = document.getElementById("email").value;
+          const password = document.getElementById("password").value;
+
+          try {
+            const response = await fetch(
+              "http://localhost:5000/api/auth/login",
+              {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: email, password }),
+              }
+            );
+
+            const data = await response.json();
+            if (response.ok) {
+              alert("Login successful!");
+              if (data.user.role === "Admin") {
+                window.location.href = "index.html";
+              } else if (data.user.role === "Regular") {
+                window.location.href = "indexs.html";
+              } else {
+                alert("Unknown role. Please contact support.");
+              }
+            } else {
+              alert(data.message || "Login failed");
+            }
+          } catch (error) {
+            console.error("Error during login:", error);
+            alert("An error occurred during login. Please try again.");
+          }
+        });
+    </script>
+  </body>
+</html>
